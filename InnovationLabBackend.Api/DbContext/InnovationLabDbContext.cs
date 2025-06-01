@@ -17,6 +17,7 @@ namespace InnovationLabBackend.Api.DbContext
         public DbSet<About> About { get; set; }
         public DbSet<CoreValue> CoreValues { get; set; }
         public DbSet<JourneyItem> JourneyItems { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
