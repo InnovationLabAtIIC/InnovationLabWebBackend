@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnovationLab.Shared", "InnovationLab.Shared\InnovationLab.Shared.csproj", "{B9397A96-68B1-4930-BCBB-2423F3A9E092}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnovationLab.Auth", "InnovationLab.Auth\InnovationLab.Auth.csproj", "{BBB56186-132B-41D9-A405-D58CF3F30CAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{B9397A96-68B1-4930-BCBB-2423F3A9E092}.Release|x64.Build.0 = Release|Any CPU
 		{B9397A96-68B1-4930-BCBB-2423F3A9E092}.Release|x86.ActiveCfg = Release|Any CPU
 		{B9397A96-68B1-4930-BCBB-2423F3A9E092}.Release|x86.Build.0 = Release|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Debug|x64.Build.0 = Debug|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Debug|x86.Build.0 = Debug|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Release|x64.ActiveCfg = Release|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Release|x64.Build.0 = Release|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Release|x86.ActiveCfg = Release|Any CPU
+		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
