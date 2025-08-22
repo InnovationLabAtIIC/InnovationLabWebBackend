@@ -12,7 +12,6 @@ public class AuthDbContext(DbContextOptions<AuthDbContext> options) : IdentityDb
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.HasDefaultSchema(DatabaseSchemas.AuthSchema);
-
         base.OnModelCreating(builder);
 
         builder.Entity<User>().HasIndex(u => u.Email).IsUnique();

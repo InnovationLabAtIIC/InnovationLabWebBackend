@@ -16,6 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddDefaultConfiguration(builder.Environment);
 
+builder.Services.AddOptionsConfigurations(builder.Configuration);
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -34,46 +36,11 @@ builder.Services.AddIdentity<User, Role>(options =>
 .AddEntityFrameworkStores<AuthDbContext>()
 .AddDefaultTokenProviders();
 
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("AllowInnovationLabFrontend", policy =>
-//     {
-//         policy.WithOrigins("https://innovation.iic.edu.np")
-//               .AllowAnyHeader()
-//               .AllowAnyMethod();
-//     });
-// });
-
 // Register Dependency Injections
 builder.Services.AddSharedServices();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-// Configure JWT
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    JwtOptions jwtOptions = new();
-    builder.Configuration.GetSection(ConfigurationKeys.Jwt).Bind(jwtOptions);
-    var secretKey = Encoding.UTF8.GetBytes(jwtOptions.Secret);
-
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidIssuer = jwtOptions.Issuer,
-        ValidAudience = jwtOptions.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(secretKey),
-        ClockSkew = TimeSpan.Zero, // No tolerance for expired tokens
-    };
-});
-
-builder.Services.AddAuthorization();
+builder.Services.AddJwtAuth(builder.Configuration);
 
 var app = builder.Build();
 
@@ -84,8 +51,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// app.UseCors("AllowInnovationLabFrontend");
 
 app.UseAuthentication();
 app.UseMiddleware<SecurityStampValidatorMiddleware>();

@@ -13,7 +13,7 @@ namespace InnovationLab.Auth.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class UsersController(
+public sealed class UsersController(
     UserManager<User> userManager,
     SignInManager<User> signInManager,
     ITokenService tokenService,
