@@ -1,7 +1,9 @@
 using System.Text;
 using InnovationLab.Auth.DbContexts;
+using InnovationLab.Auth.Interfaces;
 using InnovationLab.Auth.Middlewares;
 using InnovationLab.Auth.Models;
+using InnovationLab.Auth.Services;
 using InnovationLab.Shared.Constants;
 using InnovationLab.Shared.Extensions;
 using InnovationLab.Shared.Options;
@@ -41,6 +43,10 @@ builder.Services.AddIdentity<User, Role>(options =>
 //               .AllowAnyMethod();
 //     });
 // });
+
+// Register Dependency Injections
+builder.Services.AddSharedServices();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 // Configure JWT
 builder.Services.AddAuthentication(options =>

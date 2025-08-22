@@ -1,7 +1,12 @@
+using InnovationLab.Auth.Dtos;
+using Mapster;
 using Microsoft.AspNetCore.Identity;
 
 namespace InnovationLab.Auth.Models;
 
+[AdaptTo(typeof(UserReadDto))]
+[AdaptFrom(typeof(UserRegisterDto))]
+[AdaptFrom(typeof(UserUpdateDto))]
 public class User : IdentityUser<Guid>
 {
     public string FirstName { get; set; } = string.Empty;

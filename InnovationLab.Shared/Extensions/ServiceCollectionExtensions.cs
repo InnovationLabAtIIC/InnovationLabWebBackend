@@ -9,8 +9,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSharedServices(this IServiceCollection services)
     {
+        services.AddSingleton<IEmailService, EmailService>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        services.AddScoped<ILoggerService, LoggerService>();
 
         return services;
     }

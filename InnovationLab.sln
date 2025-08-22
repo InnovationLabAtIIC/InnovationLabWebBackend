@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnovationLab.Shared", "Inn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnovationLab.Auth", "InnovationLab.Auth\InnovationLab.Auth.csproj", "{BBB56186-132B-41D9-A405-D58CF3F30CAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnovationLab.Landing", "InnovationLab.Landing\InnovationLab.Landing.csproj", "{5BB77651-6A2D-440F-904A-A95620637144}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Release|x64.Build.0 = Release|Any CPU
 		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Release|x86.ActiveCfg = Release|Any CPU
 		{BBB56186-132B-41D9-A405-D58CF3F30CAA}.Release|x86.Build.0 = Release|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Debug|x64.Build.0 = Debug|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Debug|x86.Build.0 = Debug|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Release|x64.ActiveCfg = Release|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Release|x64.Build.0 = Release|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Release|x86.ActiveCfg = Release|Any CPU
+		{5BB77651-6A2D-440F-904A-A95620637144}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
