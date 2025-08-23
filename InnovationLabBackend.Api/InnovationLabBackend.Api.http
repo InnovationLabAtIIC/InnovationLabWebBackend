@@ -1,6 +1,0 @@
-@InnovationLabBackend.Api_HostAddress = http://localhost:5217
-
-GET {{InnovationLabBackend.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

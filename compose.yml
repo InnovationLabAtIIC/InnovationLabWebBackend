@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: postgres:17.6
+    restart: always
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+    networks:
+      - innovationlab
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  auth-api:
+    build:
+      context: .
+      dockerfile: InnovationLab.Auth/Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5001:8080"
+    networks:
+      - innovationlab
+
+  landing-api:
+    build:
+      context: .
+      dockerfile: InnovationLab.Landing/Dockerfile
+    depends_on:
+      - postgres
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5002:8080"
+    networks:
+      - innovationlab
+
+volumes:
+  postgres_data:
+
+networks:
+  innovationlab:
+    driver: bridge
