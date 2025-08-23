@@ -1,6 +1,7 @@
 using InnovationLab.Landing.DbContexts;
 using InnovationLab.Shared.Constants;
 using InnovationLab.Shared.Extensions;
+using InnovationLab.Shared.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +24,10 @@ builder.Services.AddJwtAuth(builder.Configuration);
 builder.Services.AddSharedServices();
 
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+var db = scope.ServiceProvider.GetRequiredService<LandingDbContext>();
+db.Database.Migrate();
 
 if (app.Environment.IsDevelopment())
 {

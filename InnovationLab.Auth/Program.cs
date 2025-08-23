@@ -5,6 +5,7 @@ using InnovationLab.Auth.Models;
 using InnovationLab.Auth.Services;
 using InnovationLab.Shared.Constants;
 using InnovationLab.Shared.Extensions;
+using InnovationLab.Shared.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +40,10 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddJwtAuth(builder.Configuration);
 
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+var db = scope.ServiceProvider.GetRequiredService<AuthDbContext>();
+db.Database.Migrate();
 
 if (app.Environment.IsDevelopment())
 {
