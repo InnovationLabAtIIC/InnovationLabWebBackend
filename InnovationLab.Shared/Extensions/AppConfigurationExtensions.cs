@@ -7,10 +7,8 @@ public static class AppConfigurationExtensions
 {
     public static IConfigurationBuilder AddDefaultConfiguration(this IConfigurationBuilder builder, IHostEnvironment env)
     {
-        var basePath = Directory.GetParent(Directory.GetCurrentDirectory())?.FullName!;
-
         builder
-            .SetBasePath(basePath)
+            .SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables();

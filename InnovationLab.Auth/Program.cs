@@ -1,4 +1,3 @@
-using System.Text;
 using InnovationLab.Auth.DbContexts;
 using InnovationLab.Auth.Interfaces;
 using InnovationLab.Auth.Middlewares;
@@ -6,11 +5,8 @@ using InnovationLab.Auth.Models;
 using InnovationLab.Auth.Services;
 using InnovationLab.Shared.Constants;
 using InnovationLab.Shared.Extensions;
-using InnovationLab.Shared.Options;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
