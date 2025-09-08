@@ -1,4 +1,4 @@
-using InnovationLab.Landing.DbContexts;
+using InnovationLab.Learn.DbContexts;
 using InnovationLab.Shared.Constants;
 using InnovationLab.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<LandingDbContext>(options =>
+builder.Services.AddDbContext<LearnDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString(ConfigurationKeys.PostgresConnection))
 );
 
@@ -25,7 +25,7 @@ builder.Services.AddSharedServices();
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
-var db = scope.ServiceProvider.GetRequiredService<LandingDbContext>();
+var db = scope.ServiceProvider.GetRequiredService<LearnDbContext>();
 db.Database.Migrate();
 
 if (app.Environment.IsDevelopment())

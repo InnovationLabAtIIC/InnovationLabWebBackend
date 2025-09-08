@@ -7,7 +7,7 @@ namespace InnovationLab.Landing.Models;
 
 [AdaptTo(typeof(EventReadDto))]
 [AdaptFrom(typeof(EventCreateDto))]
-// [AdaptFrom(typeof(EventUpdateDto))]
+[AdaptFrom(typeof(EventUpdateDto))]
 public class Event : BaseModel
 {
     public Guid? ParentEventId { get; set; }
