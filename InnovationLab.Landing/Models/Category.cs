@@ -1,27 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using InnovationLab.Shared.Models;
 
-namespace InnovationLabBackend.Api.Models
+namespace InnovationLab.Landing.Models;
+
+public class Category : BaseModel
 {
-    public class Category
-    {
-        public Guid Id { get; set; } = Guid.NewGuid();
-
-        [Required]
-        public required string Name { get; set; }
-
-        public DateTimeOffset CreatedAt { get; set; }
-        public DateTimeOffset LastUpdatedAt { get; set; }
-
-        // Parent category reference (nullable for top-level categories)
-        public Guid? ParentCategoryId { get; set; }
-
-        [ForeignKey("ParentCategoryId")]
-        public Category? ParentCategory { get; set; }
-
-        // Collection of subcategories (children)
-        public ICollection<Category> Subcategories { get; set; } = new List<Category>();
-
-        public ICollection<Faq> Faqs { get; set; } = new List<Faq>();
-    }
+    [Required] public required string Name { get; set; }
+    public Guid? ParentCategoryId { get; set; }
+    [ForeignKey(nameof(ParentCategoryId))] public Category? ParentCategory { get; set; }
+    public IEnumerable<Category> Subcategories { get; set; } = [];
+    public IEnumerable<Faq> Faqs { get; set; } = [];
 }

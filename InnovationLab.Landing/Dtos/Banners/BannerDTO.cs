@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
-using InnovationLabBackend.Api.Enums;
+using InnovationLab.Landing.Enums;
+using InnovationLab.Landing.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace InnovationLabBackend.Api.Dtos.Banners
 {
-    [AutoMap(typeof(Models.Banner), ReverseMap = true)]
+    [AutoMap(typeof(Banner), ReverseMap = true)]
     public class BannerDTO
     {
         public Guid Id { get; set; }

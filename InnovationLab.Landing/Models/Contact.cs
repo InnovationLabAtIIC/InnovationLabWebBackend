@@ -1,17 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using InnovationLab.Shared.Models;
 
-namespace InnovationLabBackend.Api.Models
+namespace InnovationLab.Landing.Models;
+
+public class Contact : BaseModel
 {
-    public class Contact
-    {
-        [Key]
-        public Guid Id { get; set; }
-        public required string Name { get; set; }
-        public required string Email {get; set;}
-        public required string PhoneNumber { get; set;}
-        public required string Subject { get; set;}
-        public required string Message { get; set;}
-        public DateTimeOffset CreatedDate { get; set; } = DateTimeOffset.UtcNow;
-
-    }
+    [Required][MaxLength(30)] public required string Name { get; set; }
+    [Required][EmailAddress] public required string Email { get; set; }
+    [Required][Phone] public required string PhoneNumber { get; set; }
+    [Required][MaxLength(50)] public required string Subject { get; set; }
+    [Required][MaxLength(500)] public required string Message { get; set; }
 }

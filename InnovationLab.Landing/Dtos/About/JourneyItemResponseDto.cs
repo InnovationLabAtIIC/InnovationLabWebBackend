@@ -1,5 +1,5 @@
-﻿﻿using AutoMapper;
-using InnovationLabBackend.Api.Models;
+﻿﻿sing AutoMapper;
+using InnovationLab.Landing.Models;
 
 namespace InnovationLabBackend.Api.Dtos.About
 {

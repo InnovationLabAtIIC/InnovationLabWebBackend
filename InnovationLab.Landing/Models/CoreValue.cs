@@ -1,25 +1,15 @@
 ﻿﻿using System.ComponentModel.DataAnnotations;
+using InnovationLab.Shared.Models;
 
-namespace InnovationLabBackend.Api.Models
+namespace InnovationLab.Landing.Models;
+
+public class CoreValue : BaseModel
 {
-    public class CoreValue
-    {
-        [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+    [Required] public required string Title { get; set; }
 
-        [Required]
-        public required string Title { get; set; }
+    [Required] public required string Description { get; set; }
 
-        [Required]
-        public required string Description { get; set; }
+    [Url] public string? IconUrl { get; set; }
 
-        public string? IconUrl { get; set; }
-
-        public int Order { get; set; } = 0;
-
-        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
-        public DateTimeOffset UpdatedAt { get; set; }
-        public bool IsDeleted { get; set; } = false;
-        public DateTimeOffset DeletedAt { get; set; }
-    }
+    public int Order { get; set; }
 }

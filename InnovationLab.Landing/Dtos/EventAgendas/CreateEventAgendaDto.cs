@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using AutoMapper;
-using InnovationLabBackend.Api.Models;
+using InnovationLab.Landing.Models;
 
 namespace InnovationLabBackend.Api.Dtos.EventAgendas
 {

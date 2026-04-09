@@ -4,7 +4,8 @@ using Mapster;
 namespace InnovationLab.Landing.Dtos.Events;
 
 [AdaptFrom(typeof(Event))]
-public record EventResponseDto(
+public record EventResponseDto
+(
     Guid Id,
     Guid? ParentEventId,
     string Title,

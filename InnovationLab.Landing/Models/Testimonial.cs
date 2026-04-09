@@ -1,21 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using InnovationLab.Shared.Models;
 
-namespace InnovationLabBackend.Api.Models
+namespace InnovationLab.Landing.Models;
+
+public class Testimonial : BaseModel
 {
-    public class Testimonial
-    {
-        [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
-        [Required]
-        public required string Name { get; set; }
-        [Required]
-        public required string Text { get; set; }
-        public string? Designation { get; set; }
-        public string? Organization { get; set; }
-        public string? ImageUrl { get; set; }
-        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
-        public DateTimeOffset UpdatedAt { get; set; }
-        public bool IsDeleted { get; set; } = false;
-        public DateTimeOffset DeletedAt { get; set; }
-    }
+    [Required] public required string Name { get; set; }
+    [Required] public required string Text { get; set; }
+    public string? Designation { get; set; }
+    public string? Organization { get; set; }
+    [Url] public string? ImageUrl { get; set; }
 }

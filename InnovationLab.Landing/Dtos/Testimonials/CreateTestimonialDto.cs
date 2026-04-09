@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
-using InnovationLabBackend.Api.Models;
+using InnovationLab.Landing.Models;
 
 namespace InnovationLabBackend.Api.Dtos.Testimonials
 {
@@ -11,8 +11,8 @@ namespace InnovationLabBackend.Api.Dtos.Testimonials
         public required string Name { get; set; }
         [Required]
         public required string Text { get; set; }
-        public string? Designation { get; set; } 
-        public string? Organization { get; set; } 
-        public IFormFile? ImageUrl { get; set; } 
+        public string? Designation { get; set; }
+        public string? Organization { get; set; }
+        public IFormFile? ImageUrl { get; set; }
     }
 }

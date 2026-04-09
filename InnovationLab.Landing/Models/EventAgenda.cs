@@ -1,17 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using InnovationLabBackend.Api.Validations;
+using InnovationLab.Landing.Validations;
+using InnovationLab.Shared.Models;
 
-namespace InnovationLabBackend.Api.Models
+namespace InnovationLab.Landing.Models;
+
+public class EventAgenda : BaseModel
 {
-    public class EventAgenda
-    {
-        [Key] public Guid Id { get; set; } = Guid.NewGuid();
-        [Required] public required Guid EventId { get; set; }
-        [ForeignKey(nameof(EventId))] public Event? Event { get; set; }
-        [Required][ValidAgendaDay] public required int Day { get; set; }
-        [Required] public required List<AgendaItem> Items { get; set; }
-        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
-        public DateTimeOffset UpdatedAt { get; set; }
-    }
+    [Required] public required Guid EventId { get; set; }
+    [ForeignKey(nameof(EventId))] public Event? Event { get; set; }
+    [Required][ValidAgendaDay] public required int Day { get; set; }
+    [Required][MinLength(1)] public required IEnumerable<AgendaItem> Items { get; set; }
 }

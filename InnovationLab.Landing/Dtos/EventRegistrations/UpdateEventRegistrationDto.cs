@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using InnovationLabBackend.Api.Enums;
+using InnovationLab.Landing.Enums;
 
 namespace InnovationLabBackend.Api.Dtos.EventRegistrations
 {

@@ -1,6 +1,6 @@
 using AutoMapper;
-using InnovationLabBackend.Api.Enums;
-using InnovationLabBackend.Api.Models;
+using InnovationLab.Landing.Enums;
+using InnovationLab.Landing.Models;
 
 namespace InnovationLabBackend.Api.Dtos.EventRegistrations
 {

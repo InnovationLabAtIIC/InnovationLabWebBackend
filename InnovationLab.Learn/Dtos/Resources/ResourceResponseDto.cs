@@ -1,8 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using InnovationLab.Learn.Models;
+using Mapster;
 
 namespace InnovationLab.Learn.Dtos.Resources;
 
-public record ResourceReadDto(
+[AdaptFrom(typeof(Resource))]
+public record ResourceResponseDto(
     Guid Id,
     [Required] string Title,
     [Required] string Link,
