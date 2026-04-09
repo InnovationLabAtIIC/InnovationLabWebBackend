@@ -20,7 +20,7 @@ public sealed class EventsController(IRepository<LandingDbContext, Event> repo) 
     {
         var skip = (page - 1) * pageSize;
         var events = await _repo.GetAsync(skip, pageSize);
-        var eventsDto = events.Adapt<IList<EventReadDto>>();
+        var eventsDto = events.Adapt<IList<EventResponseDto>>();
         return Ok(eventsDto);
     }
 
@@ -34,7 +34,7 @@ public sealed class EventsController(IRepository<LandingDbContext, Event> repo) 
             return NotFound();
         }
 
-        var eventDto = ev.Adapt<EventReadDto>();
+        var eventDto = ev.Adapt<EventResponseDto>();
         return Ok(eventDto);
     }
 
@@ -46,7 +46,7 @@ public sealed class EventsController(IRepository<LandingDbContext, Event> repo) 
         await _repo.AddAsync(ev);
         await _repo.SaveChangesAsync();
 
-        var eventDto = ev.Adapt<EventReadDto>();
+        var eventDto = ev.Adapt<EventResponseDto>();
         return CreatedAtAction(nameof(GetEventById), new { id = eventDto.Id }, eventDto);
     }
 

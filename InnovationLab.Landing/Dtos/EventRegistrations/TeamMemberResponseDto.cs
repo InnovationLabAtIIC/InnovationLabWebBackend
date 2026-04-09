@@ -1,0 +1,14 @@
+using AutoMapper;
+using InnovationLabBackend.Api.Models;
+
+namespace InnovationLabBackend.Api.Dtos.EventRegistrations
+{
+    [AutoMap(typeof(TeamMember), ReverseMap = true)]
+    public class TeamMemberResponseDto
+    {
+        public Guid Id { get; set; }
+        public required string Name { get; set; }
+        public required string Email { get; set; }
+        public string? Phone { get; set; }
+    }
+}

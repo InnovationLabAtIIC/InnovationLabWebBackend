@@ -19,7 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AuthDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString(ConfigurationKeys.PostgresConnection))
+    options.UseNpgsql(builder.Configuration.GetConnectionString(ConfigurationKeys.DbConnection))
 );
 
 builder.Services.AddIdentity<User, Role>(options =>

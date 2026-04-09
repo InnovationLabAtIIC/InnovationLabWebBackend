@@ -1,22 +1,30 @@
 services:
-  postgres:
+  db:
     image: postgres:17.6
     restart: always
     environment:
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
       POSTGRES_DB: ${PG_DATABASE}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER} -d ${PG_DATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    ports:
+      - "5432:5432"
     networks:
       - innovationlab
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
 
   auth-api:
     build:
       context: .
       dockerfile: InnovationLab.Auth/Dockerfile
     depends_on:
-      - postgres
+      db:
+        condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
@@ -29,7 +37,8 @@ services:
       context: .
       dockerfile: InnovationLab.Landing/Dockerfile
     depends_on:
-      - postgres
+      db:
+        condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
@@ -42,7 +51,8 @@ services:
       context: .
       dockerfile: InnovationLab.Learn/Dockerfile
     depends_on:
-      - postgres
+      db:
+        condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
@@ -51,7 +61,7 @@ services:
       - innovationlab
 
 volumes:
-  postgres_data:
+  db_data:
 
 networks:
   innovationlab:

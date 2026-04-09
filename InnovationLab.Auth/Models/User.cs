@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace InnovationLab.Auth.Models;
 
-[AdaptTo(typeof(UserReadDto))]
+[AdaptTo(typeof(UserResponseDto))]
 [AdaptFrom(typeof(UserRegisterDto))]
 [AdaptFrom(typeof(UserUpdateDto))]
 public class User : IdentityUser<Guid>

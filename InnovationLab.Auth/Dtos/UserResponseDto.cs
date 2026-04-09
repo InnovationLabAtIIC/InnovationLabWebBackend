@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace InnovationLab.Auth.Dtos;
 
-public record UserReadDto
+public record UserResponseDto
 (
     Guid Id,
     string UserName,

@@ -1,13 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using InnovationLab.Landing.Dtos.Events;
 using InnovationLab.Shared.Models;
-using Mapster;
 
 namespace InnovationLab.Landing.Models;
 
-[AdaptTo(typeof(EventReadDto))]
-[AdaptFrom(typeof(EventCreateDto))]
-[AdaptFrom(typeof(EventUpdateDto))]
 public class Event : BaseModel
 {
     public Guid? ParentEventId { get; set; }
