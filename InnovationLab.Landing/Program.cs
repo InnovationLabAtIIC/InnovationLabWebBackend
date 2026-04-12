@@ -18,6 +18,7 @@ builder.Services.AddDbContext<LandingDbContext>(options =>
 );
 
 builder.Services.AddJwtAuth(builder.Configuration);
+builder.Services.AddCloudinary(builder.Configuration);
 
 // Register Dependency Injections
 builder.Services.AddSharedServices();

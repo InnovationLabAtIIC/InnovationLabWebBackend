@@ -32,11 +32,13 @@ builder.Services.AddIdentity<User, Role>(options =>
 .AddEntityFrameworkStores<AuthDbContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.AddJwtAuth(builder.Configuration);
+builder.Services.AddCloudinary(builder.Configuration);
+
 // Register Dependency Injections
 builder.Services.AddSharedServices();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-builder.Services.AddJwtAuth(builder.Configuration);
 
 var app = builder.Build();
 

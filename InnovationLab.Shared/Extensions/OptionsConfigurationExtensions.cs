@@ -11,6 +11,7 @@ public static class OptionsConfigurationExtensions
     {
         services.Configure<JwtOptions>(configuration.GetSection(ConfigurationKeys.Jwt));
         services.Configure<SmtpOptions>(configuration.GetSection(ConfigurationKeys.Smtp));
+        services.Configure<CloudinaryOptions>(configuration.GetSection(ConfigurationKeys.Cloudinary));
 
         return services;
     }
