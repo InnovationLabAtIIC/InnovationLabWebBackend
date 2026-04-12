@@ -1,17 +1,17 @@
-﻿using AutoMapper;
+﻿using Mapster;
 using InnovationLab.Landing.Models;
 
-namespace InnovationLabBackend.Api.Dtos.Contacts
-{
-    [AutoMap(typeof(Contact), ReverseMap = true)]
-    public class ContactResponseDto
-    {
-        public Guid Id { get; set; }
-        public required string Name { get; set; }
-        public required string Email { get; set; }
-        public required string PhoneNumber { get; set; }
-        public required string Subject { get; set; }
-        public required string Message { get; set; }
-        public DateTimeOffset CreatedDate { get; set; }
-    }
-}
+namespace InnovationLab.Landing.Dtos.Contacts;
+
+[AdaptFrom(typeof(Contact))]
+public record ContactResponseDto
+(
+    Guid Id,
+    string Name,
+    string Email,
+    string PhoneNumber,
+    string Subject,
+    string Message,
+    DateTimeOffset CreatedAt,
+    DateTimeOffset? UpdatedAt
+);

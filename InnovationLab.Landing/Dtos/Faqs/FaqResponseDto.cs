@@ -1,17 +1,16 @@
-﻿using AutoMapper;
-using InnovationLab.Landing.Models;
+﻿using InnovationLab.Landing.Models;
+using Mapster;
 
-namespace InnovationLabBackend.Api.Dtos.Faqs
-{
-    [AutoMap(typeof(Faq), ReverseMap = true)]
-    public class FaqResponseDto
-    {
-        public Guid Id { get; set; }
-        public string Question { get; set; } = default!;
-        public string Answer { get; set; } = default!;
-        public DateTimeOffset CreatedAt { get; set; }
-        public DateTimeOffset LastUpdatedAt { get; set; }
-        public Guid CategoryId { get; set; }
-        public string CategoryName { get; set; } = default!;
-    }
-}
+namespace InnovationLab.Landing.Dtos.Faqs;
+
+[AdaptFrom(typeof(Faq))]
+public record FaqResponseDto
+(
+    Guid Id,
+    string Question,
+    string Answer,
+    DateTimeOffset CreatedAt,
+    DateTimeOffset? UpdatedAt,
+    Guid CategoryId,
+    string CategoryName
+);

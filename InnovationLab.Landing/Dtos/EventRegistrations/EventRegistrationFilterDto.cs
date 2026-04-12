@@ -1,11 +1,11 @@
 using InnovationLab.Landing.Enums;
+using System.ComponentModel.DataAnnotations;
 
-namespace InnovationLabBackend.Api.Dtos.EventRegistrations
-{
-    public class EventRegistrationFilterDto
-    {
-        public EventRegistrationStatus? Status { get; set; }
-        public int Page { get; set; } = 1;
-        public int Limit { get; set; } = 10;
-    }
-}
+namespace InnovationLab.Landing.Dtos.EventRegistrations;
+
+public record EventRegistrationFilterDto
+(
+    EventRegistrationStatus? Status,
+    [Range(1, int.MaxValue)] int Page = 1,
+    [Range(1, 100)] int Limit = 10
+);

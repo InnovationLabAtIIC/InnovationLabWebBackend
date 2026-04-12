@@ -1,17 +1,13 @@
-﻿﻿sing AutoMapper;
-using InnovationLab.Landing.Models;
+﻿﻿using InnovationLab.Landing.Models;
+using Mapster;
 
-namespace InnovationLabBackend.Api.Dtos.About
-{
-    [AutoMap(typeof(CoreValue), ReverseMap = true)]
-    public class CoreValueUpdateDto
-    {
-        public string? Title { get; set; }
+namespace InnovationLab.Landing.Dtos.About;
 
-        public string? Description { get; set; }
-
-        public IFormFile? Icon { get; set; }
-
-        public int? Order { get; set; }
-    }
-}
+[AdaptTo(typeof(CoreValue))]
+public record CoreValueUpdateDto
+(
+    string? Title,
+    string? Description,
+    IFormFile? Icon,
+    int? Order
+);

@@ -1,14 +1,13 @@
-﻿using AutoMapper;
+﻿using Mapster;
 using InnovationLab.Landing.Models;
 
-namespace InnovationLabBackend.Api.Dtos.Categories
-{
-    [AutoMap(typeof(Category), ReverseMap = true)]
-    public class CategoryResponseDto
-    {
-        public Guid Id { get; set; }
-        public required string Name { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
-        public DateTimeOffset LastUpdatedAt { get; set; }
-    }
-}
+namespace InnovationLab.Landing.Dtos.Categories;
+
+[AdaptFrom(typeof(Category))]
+public record CategoryResponseDto
+(
+    Guid Id,
+    string Name,
+    DateTimeOffset CreatedAt,
+    DateTimeOffset? UpdatedAt
+);

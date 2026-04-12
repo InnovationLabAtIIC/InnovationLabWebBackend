@@ -13,6 +13,6 @@ public record AboutResponseDto
     string? ParentOrgLogoUrl,
     string? ParentOrgWebsiteUrl,
     DateTimeOffset CreatedAt,
-    DateTimeOffset UpdatedAt,
-    DateTimeOffset DeletedAt
+    DateTimeOffset? UpdatedAt,
+    DateTimeOffset? DeletedAt
 );

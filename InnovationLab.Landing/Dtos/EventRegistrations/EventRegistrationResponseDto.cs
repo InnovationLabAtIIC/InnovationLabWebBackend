@@ -1,21 +1,20 @@
-using AutoMapper;
 using InnovationLab.Landing.Enums;
 using InnovationLab.Landing.Models;
+using Mapster;
 
-namespace InnovationLabBackend.Api.Dtos.EventRegistrations
-{
-    [AutoMap(typeof(EventRegistration), ReverseMap = true)]
-    public class EventRegistrationResponseDto
-    {
-        public Guid Id { get; set; }
-        public Event? Event { get; set; }
-        public required EventRegistrationType Type { get; set; }
-        public required string Name { get; set; }
-        public required string Email { get; set; }
-        public string? Phone { get; set; }
-        public List<TeamMemberResponseDto>? TeamMembers { get; set; }
-        public EventRegistrationStatus Status { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
-        public DateTimeOffset UpdatedAt { get; set; }
-    }
-}
+namespace InnovationLab.Landing.Dtos.EventRegistrations;
+
+[AdaptFrom(typeof(EventRegistration))]
+public record EventRegistrationResponseDto
+(
+    Guid Id,
+    Event? Event,
+    EventRegistrationType Type,
+    string Name,
+    string Email,
+    string? Phone,
+    List<TeamMemberResponseDto>? TeamMembers,
+    EventRegistrationStatus Status,
+    DateTimeOffset CreatedAt,
+    DateTimeOffset? UpdatedAt
+);

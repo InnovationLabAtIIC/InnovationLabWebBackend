@@ -1,20 +1,18 @@
-﻿using AutoMapper;
-using InnovationLab.Landing.Models;
+﻿using InnovationLab.Landing.Models;
+using Mapster;
 
-namespace InnovationLabBackend.Api.Dtos.Testimonials
-{
-    [AutoMap(typeof(Testimonial), ReverseMap = true)]
-    public class TestimonialResponseDto
-    {
-        public Guid Id { get; set; }
-        public required string Name { get; set; }
-        public required string Text { get; set; }
-        public string? Designation { get; set; }
-        public string? Organization { get; set; }
-        public string? ImageUrl { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
-        public DateTimeOffset UpdatedAt { get; set; }
-        public bool IsDeleted { get; set; }
-        public DateTimeOffset DeletedAt { get; set; }
-    }
-}
+namespace InnovationLab.Landing.Dtos.Testimonials;
+
+[AdaptFrom(typeof(Testimonial))]
+public record TestimonialResponseDto
+(
+    Guid Id,
+    string Name,
+    string Text,
+    string? Designation,
+    string? Organization,
+    string? ImageUrl,
+    DateTimeOffset CreatedAt,
+    DateTimeOffset? UpdatedAt,
+    DateTimeOffset? DeletedAt
+);

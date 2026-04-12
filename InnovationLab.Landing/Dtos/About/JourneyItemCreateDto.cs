@@ -1,23 +1,15 @@
-﻿﻿sing AutoMapper;
-using InnovationLab.Landing.Models;
+﻿﻿using InnovationLab.Landing.Models;
+using Mapster;
 using System.ComponentModel.DataAnnotations;
 
-namespace InnovationLabBackend.Api.Dtos.About
-{
-    [AutoMap(typeof(JourneyItem), ReverseMap = true)]
-    public class JourneyItemCreateDto
-    {
-        [Required]
-        public required string Title { get; set; }
+namespace InnovationLab.Landing.Dtos.About;
 
-        [Required]
-        public required string Description { get; set; }
-
-        public IFormFile? Image { get; set; }
-
-        [Required]
-        public DateTimeOffset Date { get; set; }
-
-        public int Order { get; set; } = 0;
-    }
-}
+[AdaptTo(typeof(JourneyItem))]
+public record JourneyItemCreateDto
+(
+    [Required] string Title,
+    [Required] string Description,
+    IFormFile? Image,
+    [Required] DateTimeOffset Date,
+    int Order
+);

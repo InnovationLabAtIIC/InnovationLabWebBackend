@@ -1,16 +1,18 @@
-﻿using InnovationLab.Landing.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using InnovationLab.Landing.Enums;
+using InnovationLab.Landing.Models;
+using Mapster;
 
-namespace InnovationLabBackend.Api.Dtos.Banners
-{
-    public class BannerUpdateDTO
-    {
+namespace InnovationLab.Landing.Dtos.Banners;
 
-        public string? Url { get; set; }
-        public MediaType? Type { get; set; }
-        public string? Title { get; set; }
-        public string? SubTitle { get; set; }
-        public string? Caption { get; set; }
-        public DateTimeOffset? ScheduledStart { get; set; }
-        public DateTimeOffset? ScheduledEnd { get; set; }
-    }
-}
+[AdaptTo(typeof(Banner))]
+public record BannerUpdateDto
+(
+    [Url] string? Url,
+    MediaType? Type,
+    string? Title,
+    string? SubTitle,
+    string? Caption,
+    DateTimeOffset? ScheduledStart,
+    DateTimeOffset? ScheduledEnd
+);

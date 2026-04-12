@@ -1,16 +1,15 @@
-using AutoMapper;
 using InnovationLab.Landing.Models;
+using Mapster;
 
-namespace InnovationLabBackend.Api.Dtos.EventAgendas
-{
-    [AutoMap(typeof(EventAgenda), ReverseMap = true)]
-    public class EventAgendaResponseDto
-    {
-        public Guid Id { get; set; }
-        public required Guid EventId { get; set; }
-        public required int Day { get; set; }
-        public required List<AgendaItemResponseDto> Items { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
-        public DateTimeOffset UpdatedAt { get; set; }
-    }
-}
+namespace InnovationLab.Landing.Dtos.EventAgendas;
+
+[AdaptFrom(typeof(EventAgenda))]
+public record EventAgendaResponseDto
+(
+    Guid Id,
+    Guid EventId,
+    int Day,
+    List<AgendaItemResponseDto> Items,
+    DateTimeOffset CreatedAt,
+    DateTimeOffset? UpdatedAt
+);
