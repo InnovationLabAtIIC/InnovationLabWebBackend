@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using InnovationLab.Landing.Enums;
+using InnovationLab.Shared.Enums;
 using InnovationLab.Landing.Models;
 using Mapster;
 

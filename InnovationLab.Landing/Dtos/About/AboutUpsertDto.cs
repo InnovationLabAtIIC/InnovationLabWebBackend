@@ -4,7 +4,7 @@ using Mapster;
 namespace InnovationLab.Landing.Dtos.About;
 
 [AdaptTo(typeof(Models.About))]
-public record AboutCreateDto
+public record AboutUpsertDto
 (
     [Required] string Mission,
     [Required] string Vision,

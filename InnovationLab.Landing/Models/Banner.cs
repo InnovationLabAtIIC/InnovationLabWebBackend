@@ -1,4 +1,4 @@
-﻿using InnovationLab.Landing.Enums;
+﻿using InnovationLab.Shared.Enums;
 using InnovationLab.Shared.Models;
 using System.ComponentModel.DataAnnotations;
 

@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using InnovationLab.Landing.Enums;
+using InnovationLab.Shared.Enums;
 using InnovationLab.Landing.Models;
 
 namespace InnovationLab.Landing.Dtos.Banners;

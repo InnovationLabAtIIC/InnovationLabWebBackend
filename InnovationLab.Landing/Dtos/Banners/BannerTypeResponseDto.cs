@@ -1,4 +1,4 @@
-﻿using InnovationLab.Landing.Enums;
+﻿using InnovationLab.Shared.Enums;
 
 namespace InnovationLab.Landing.Dtos.Banners;
 

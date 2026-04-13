@@ -1,7 +1,7 @@
 ﻿using Mapster;
-using InnovationLab.Landing.Enums;
 using InnovationLab.Landing.Models;
 using System.ComponentModel.DataAnnotations;
+using InnovationLab.Shared.Enums;
 
 namespace InnovationLab.Landing.Dtos.Banners;
 

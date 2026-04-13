@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using InnovationLab.Landing.Enums;
 using InnovationLab.Landing.Models;
 using Mapster;
+using InnovationLab.Landing.Enums;
 
 namespace InnovationLab.Landing.Dtos.EventRegistrations;
 
