@@ -14,10 +14,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<LandingDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString(ConfigurationKeys.PostgresConnection))
+    options.UseNpgsql(builder.Configuration.GetConnectionString(ConfigurationKeys.DbConnection))
 );
 
 builder.Services.AddJwtAuth(builder.Configuration);
+builder.Services.AddCloudinary(builder.Configuration);
 
 // Register Dependency Injections
 builder.Services.AddSharedServices();

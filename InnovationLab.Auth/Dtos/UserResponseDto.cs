@@ -1,8 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using InnovationLab.Auth.Models;
+using Mapster;
 
 namespace InnovationLab.Auth.Dtos;
 
-public record UserReadDto
+[AdaptFrom(typeof(User))]
+public record UserResponseDto
 (
     Guid Id,
     string UserName,

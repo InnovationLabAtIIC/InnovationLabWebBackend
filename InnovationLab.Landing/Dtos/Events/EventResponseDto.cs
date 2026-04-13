@@ -1,6 +1,11 @@
+using InnovationLab.Landing.Models;
+using Mapster;
+
 namespace InnovationLab.Landing.Dtos.Events;
 
-public record EventReadDto(
+[AdaptFrom(typeof(Event))]
+public record EventResponseDto
+(
     Guid Id,
     Guid? ParentEventId,
     string Title,

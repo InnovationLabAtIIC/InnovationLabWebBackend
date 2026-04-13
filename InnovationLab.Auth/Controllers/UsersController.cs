@@ -92,7 +92,7 @@ public sealed class UsersController(
             return Unauthorized("Invalid token or inactive user.");
         }
 
-        var userDto = user.Adapt<UserReadDto>();
+        var userDto = user.Adapt<UserResponseDto>();
         return Ok(userDto);
     }
 
@@ -122,7 +122,7 @@ public sealed class UsersController(
             return BadRequest(result.Errors);
         }
 
-        var userDto = user.Adapt<UserReadDto>();
+        var userDto = user.Adapt<UserResponseDto>();
         return Ok(userDto);
     }
 
@@ -300,7 +300,7 @@ public sealed class UsersController(
             .Where(u => u.IsActive)
             .ToListAsync();
 
-        var userDtos = users.Adapt<IList<UserReadDto>>();
+        var userDtos = users.Adapt<IList<UserResponseDto>>();
         return Ok(userDtos);
     }
 
@@ -315,7 +315,7 @@ public sealed class UsersController(
             return NotFound("User not found.");
         }
 
-        var userDto = user.Adapt<UserReadDto>();
+        var userDto = user.Adapt<UserResponseDto>();
         return Ok(userDto);
     }
 }

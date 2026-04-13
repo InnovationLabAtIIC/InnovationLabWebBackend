@@ -20,7 +20,7 @@ public class ResourcesController(IRepository<LearnDbContext, Resource> repo) : C
     {
         var skip = (page - 1) * pageSize;
         var resources = await _repo.GetAsync(skip, pageSize);
-        var resourcesDto = resources.Adapt<IList<ResourceReadDto>>();
+        var resourcesDto = resources.Adapt<IList<ResourceResponseDto>>();
         return Ok(resourcesDto);
     }
 
@@ -32,7 +32,7 @@ public class ResourcesController(IRepository<LearnDbContext, Resource> repo) : C
         await _repo.AddAsync(resource);
         await _repo.SaveChangesAsync();
 
-        var resourceDto = resource.Adapt<ResourceReadDto>();
+        var resourceDto = resource.Adapt<ResourceResponseDto>();
         // This shall be nameof(GetResourceById)
         return CreatedAtAction(nameof(GetResources), new { id = resourceDto.Id }, resourceDto);
     }

@@ -19,7 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AuthDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString(ConfigurationKeys.PostgresConnection))
+    options.UseNpgsql(builder.Configuration.GetConnectionString(ConfigurationKeys.DbConnection))
 );
 
 builder.Services.AddIdentity<User, Role>(options =>
@@ -32,11 +32,13 @@ builder.Services.AddIdentity<User, Role>(options =>
 .AddEntityFrameworkStores<AuthDbContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.AddJwtAuth(builder.Configuration);
+builder.Services.AddCloudinary(builder.Configuration);
+
 // Register Dependency Injections
 builder.Services.AddSharedServices();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
-builder.Services.AddJwtAuth(builder.Configuration);
 
 var app = builder.Build();
 

@@ -9,7 +9,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSharedServices(this IServiceCollection services)
     {
-        services.AddSingleton<IEmailService, EmailService>();
+        services.AddTransient<IEmailService, EmailService>();
+        services.AddScoped<IMediaService, MediaService>();
         services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 
         return services;

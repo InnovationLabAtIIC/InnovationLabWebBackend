@@ -14,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<LearnDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString(ConfigurationKeys.PostgresConnection))
+    options.UseNpgsql(builder.Configuration.GetConnectionString(ConfigurationKeys.DbConnection))
 );
 
 builder.Services.AddJwtAuth(builder.Configuration);

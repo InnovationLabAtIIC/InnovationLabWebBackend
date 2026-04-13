@@ -1,8 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using InnovationLab.Landing.Models;
+using Mapster;
 
 namespace InnovationLab.Landing.Dtos.Events;
 
-public record EventUpdateDto(
+[AdaptTo(typeof(Event))]
+public record EventUpdateDto
+(
     Guid? ParentEventId,
     [Required] string Title,
     [Required] string Description,

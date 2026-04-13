@@ -15,7 +15,7 @@ public static class DbContextFactoryHelper
             .Build();
 
         var optionsBuilder = new DbContextOptionsBuilder<TContext>();
-        var connString = config.GetConnectionString(ConfigurationKeys.PostgresConnection);
+        var connString = config.GetConnectionString(ConfigurationKeys.DbConnection);
         optionsBuilder.UseNpgsql(connString);
 
         return (TContext)Activator.CreateInstance(typeof(TContext), optionsBuilder.Options)!;
