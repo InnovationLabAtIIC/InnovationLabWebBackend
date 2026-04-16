@@ -10,6 +10,6 @@ public record CompanyCreateDto
     [Required] string Name,
     [Required] string Address,
     [EmailAddress] string? ContactEmail,
-    [Required][Url] string LogoUrl,
+    [Required] IFormFile Logo,
     [Range(0, int.MaxValue)] int Priority
 );
