@@ -30,7 +30,12 @@ public sealed class CompaniesController(
     {
         var skip = (page - 1) * pageSize;
 
-        var companies = await _companyRepo.GetAsync(skip, pageSize);
+        var companies = await _companyRepo.QueryAsync
+        (
+            query => query.OrderBy(c => c.Priority),
+            skip,
+            pageSize
+        );
 
         var companyDtos = companies.Adapt<IList<CompanyResponseDto>>();
         return Ok(companyDtos);
