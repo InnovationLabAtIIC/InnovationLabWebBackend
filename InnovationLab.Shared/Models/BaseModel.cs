@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace InnovationLab.Shared.Models;
 
+[PrimaryKey(nameof(Id))]
 public abstract class BaseModel
 {
     public Guid Id { get; set; } = Guid.NewGuid();

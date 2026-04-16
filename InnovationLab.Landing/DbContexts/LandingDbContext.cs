@@ -19,6 +19,7 @@ public class LandingDbContext(DbContextOptions<LandingDbContext> options) : DbCo
     public DbSet<CoreValue> CoreValues { get; set; }
     public DbSet<JourneyItem> JourneyItems { get; set; }
     public DbSet<Contact> Contacts { get; set; }
+    public DbSet<Company> Companies { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

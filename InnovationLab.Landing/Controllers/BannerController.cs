@@ -6,6 +6,7 @@ using Mapster;
 using InnovationLab.Shared.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using InnovationLab.Shared.Extensions;
 
 namespace InnovationLab.Landing.Controllers;
 
@@ -81,8 +82,8 @@ public sealed class BannerController(
     [HttpPost(Name = nameof(CreateBanner))]
     public async Task<ActionResult<BannerResponseDto>> CreateBanner([FromForm] BannerCreateDto bannerCreateDto)
     {
-        var mediaType = GetSharedMediaType(bannerCreateDto.Image.ContentType);
-        if (mediaType == MediaType.NotSupported)
+        var mediaType = bannerCreateDto.Image.ContentType.ToMediaType();
+        if (mediaType is MediaType.NotSupported)
         {
             return StatusCode(StatusCodes.Status415UnsupportedMediaType);
         }
@@ -206,21 +207,5 @@ public sealed class BannerController(
         _bannerRepo.HardDelete(banner);
         await _bannerRepo.SaveChangesAsync();
         return NoContent();
-    }
-
-    private static MediaType GetSharedMediaType(string contentType)
-    {
-        var normalizedContentType = contentType.ToLowerInvariant();
-        if (normalizedContentType.StartsWith("image"))
-        {
-            return MediaType.Image;
-        }
-
-        if (normalizedContentType.StartsWith("video"))
-        {
-            return MediaType.Video;
-        }
-
-        return MediaType.NotSupported;
     }
 }

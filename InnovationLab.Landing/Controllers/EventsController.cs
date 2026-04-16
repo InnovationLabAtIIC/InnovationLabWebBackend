@@ -28,13 +28,13 @@ public sealed class EventsController(IRepository<LandingDbContext, Event> eventR
     [HttpGet("{id}", Name = nameof(GetEventById))]
     public async Task<ActionResult<EventResponseDto>> GetEventById(Guid id)
     {
-        var ev = await _eventRepo.GetByIdAsync(id);
-        if (ev is null)
+        var @event = await _eventRepo.GetByIdAsync(id);
+        if (@event is null)
         {
             return NotFound();
         }
 
-        var eventDto = ev.Adapt<EventResponseDto>();
+        var eventDto = @event.Adapt<EventResponseDto>();
         return Ok(eventDto);
     }
 
@@ -42,11 +42,11 @@ public sealed class EventsController(IRepository<LandingDbContext, Event> eventR
     [HttpPost(Name = nameof(CreateEvent))]
     public async Task<ActionResult<EventResponseDto>> CreateEvent([FromForm] EventCreateDto eventCreateDto)
     {
-        var ev = eventCreateDto.Adapt<Event>();
-        await _eventRepo.AddAsync(ev);
+        var @event = eventCreateDto.Adapt<Event>();
+        await _eventRepo.AddAsync(@event);
         await _eventRepo.SaveChangesAsync();
 
-        var eventDto = ev.Adapt<EventResponseDto>();
+        var eventDto = @event.Adapt<EventResponseDto>();
         return CreatedAtAction(nameof(GetEventById), new { id = eventDto.Id }, eventDto);
     }
 
@@ -54,14 +54,14 @@ public sealed class EventsController(IRepository<LandingDbContext, Event> eventR
     [HttpPut("{id}", Name = nameof(UpdateEvent))]
     public async Task<ActionResult> UpdateEvent(Guid id, [FromForm] EventUpdateDto eventUpdateDto)
     {
-        var ev = await _eventRepo.GetByIdAsync(id);
-        if (ev is null)
+        var @event = await _eventRepo.GetByIdAsync(id);
+        if (@event is null)
         {
             return NotFound();
         }
 
-        eventUpdateDto.Adapt(ev);
-        _eventRepo.Update(ev);
+        eventUpdateDto.Adapt(@event);
+        _eventRepo.Update(@event);
         await _eventRepo.SaveChangesAsync();
 
         return NoContent();
@@ -71,13 +71,13 @@ public sealed class EventsController(IRepository<LandingDbContext, Event> eventR
     [HttpDelete("{id}", Name = nameof(DeleteEvent))]
     public async Task<ActionResult> DeleteEvent(Guid id)
     {
-        var ev = await _eventRepo.GetByIdAsync(id);
-        if (ev is null)
+        var @event = await _eventRepo.GetByIdAsync(id);
+        if (@event is null)
         {
             return NotFound();
         }
 
-        _eventRepo.HardDelete(ev);
+        _eventRepo.HardDelete(@event);
         await _eventRepo.SaveChangesAsync();
 
         return NoContent();
