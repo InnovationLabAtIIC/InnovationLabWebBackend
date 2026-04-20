@@ -1,6 +1,8 @@
 using InnovationLab.Landing.DbContexts;
 using InnovationLab.Landing.Dtos.EventAgendas;
+using InnovationLab.Landing.Dtos.EventRegistrations;
 using InnovationLab.Landing.Dtos.Events;
+using InnovationLab.Landing.Enums;
 using InnovationLab.Landing.Models;
 using InnovationLab.Shared.Interfaces;
 using Mapster;
@@ -14,11 +16,13 @@ namespace InnovationLab.Landing.Controllers;
 [Route("api/v1/[controller]")]
 public sealed class EventsController(
     IRepository<LandingDbContext, Event> eventRepo,
-    IRepository<LandingDbContext, EventAgenda> eventAgendaRepo
+    IRepository<LandingDbContext, EventAgenda> eventAgendaRepo,
+    IRepository<LandingDbContext, EventRegistration> eventRegistrationRepo
 ) : ControllerBase
 {
     private readonly IRepository<LandingDbContext, Event> _eventRepo = eventRepo;
     private readonly IRepository<LandingDbContext, EventAgenda> _eventAgendaRepo = eventAgendaRepo;
+    private readonly IRepository<LandingDbContext, EventRegistration> _eventRegistrationRepo = eventRegistrationRepo;
 
     [AllowAnonymous]
     [HttpGet(Name = nameof(GetEvents))]
@@ -98,15 +102,15 @@ public sealed class EventsController(
     {
         var skip = (page - 1) * pageSize;
 
-        var agenda = await _eventAgendaRepo.QueryAsync(
+        var agendas = await _eventAgendaRepo.QueryAsync(
             ea => ea.Include(a => a.Items).Where(a => a.EventId == id),
             skip,
             pageSize
         );
 
-        var agendaDto = agenda.Adapt<EventAgendaResponseDto>();
+        var agendasDto = agendas.Adapt<IList<EventAgendaResponseDto>>();
 
-        return Ok(agendaDto);
+        return Ok(agendasDto);
     }
 
     [Authorize]
@@ -162,6 +166,91 @@ public sealed class EventsController(
 
         _eventAgendaRepo.HardDelete(agenda);
         await _eventAgendaRepo.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    [HttpPost("{id}/register", Name = nameof(RegisterForEvent))]
+    public async Task<ActionResult<EventRegistrationResponseDto>> RegisterForEvent(Guid id, [FromBody] EventRegistrationCreateDto registrationCreateDto)
+    {
+        var @event = await _eventRepo.GetByIdAsync(id);
+
+        if (@event is null)
+        {
+            return NotFound();
+        }
+
+        if (@event.IsTeamEvent)
+        {
+            if (registrationCreateDto.TeamMembers is null || registrationCreateDto.TeamMembers.Count is 0)
+            {
+                return BadRequest("Team Members are required for team event");
+            }
+
+            if (registrationCreateDto.TeamMembers.Count > @event.MaxTeamMembers)
+            {
+                return BadRequest($"Maximum of {@event.MaxTeamMembers} team members are only allowed");
+            }
+        }
+        else
+        {
+            if (registrationCreateDto.TeamMembers is not null && registrationCreateDto.TeamMembers.Count is not 0)
+            {
+                return BadRequest("Team Members are not allowed for solo event");
+            }
+        }
+
+        var newRegistration = registrationCreateDto.Adapt<EventRegistration>();
+        newRegistration.EventId = id;
+        newRegistration.Type = @event.IsTeamEvent ? EventRegistrationType.Team : EventRegistrationType.Solo;
+        newRegistration.Status = EventRegistrationStatus.Pending;
+
+        await _eventRegistrationRepo.AddAsync(newRegistration);
+        await _eventRegistrationRepo.SaveChangesAsync();
+
+        var registrationDto = newRegistration.Adapt<EventAgendaResponseDto>();
+
+        return CreatedAtAction(nameof(GetEventRegistrations), new { id = registrationDto.Id }, registrationDto);
+    }
+
+    [Authorize]
+    [HttpGet("{id}/registrations", Name = nameof(GetEventRegistrations))]
+    public async Task<ActionResult<List<EventRegistrationResponseDto>>> GetEventRegistrations(
+        Guid id,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 20
+    )
+    {
+        var skip = (page - 1) * pageSize;
+
+        var registrations = await _eventRegistrationRepo.QueryAsync(
+            er => er.Where(r => r.EventId == id),
+            skip,
+            pageSize
+        );
+
+        var registrationsDto = registrations.Adapt<IList<EventRegistrationResponseDto>>();
+        return Ok(registrationsDto);
+    }
+
+    [Authorize]
+    [HttpPatch("/registrations/{registrationId}/status", Name = nameof(UpdateEventRegistrationStatus))]
+    public async Task<ActionResult> UpdateEventRegistrationStatus(
+        Guid registrationId,
+        [FromBody] EventRegistrationUpdateDto registrationUpdateDto
+    )
+    {
+        var registration = await _eventRegistrationRepo.GetByIdAsync(registrationId);
+
+        if (registration is null)
+        {
+            return NotFound();
+        }
+
+        registrationUpdateDto.Adapt(registration);
+
+        _eventRegistrationRepo.Update(registration);
+        await _eventRegistrationRepo.SaveChangesAsync();
 
         return NoContent();
     }
