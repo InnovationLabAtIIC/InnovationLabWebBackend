@@ -1,18 +1,24 @@
 using InnovationLab.Landing.DbContexts;
+using InnovationLab.Landing.Dtos.EventAgendas;
 using InnovationLab.Landing.Dtos.Events;
 using InnovationLab.Landing.Models;
 using InnovationLab.Shared.Interfaces;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace InnovationLab.Landing.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public sealed class EventsController(IRepository<LandingDbContext, Event> eventRepo) : ControllerBase
+public sealed class EventsController(
+    IRepository<LandingDbContext, Event> eventRepo,
+    IRepository<LandingDbContext, EventAgenda> eventAgendaRepo
+) : ControllerBase
 {
     private readonly IRepository<LandingDbContext, Event> _eventRepo = eventRepo;
+    private readonly IRepository<LandingDbContext, EventAgenda> _eventAgendaRepo = eventAgendaRepo;
 
     [AllowAnonymous]
     [HttpGet(Name = nameof(GetEvents))]
@@ -77,8 +83,85 @@ public sealed class EventsController(IRepository<LandingDbContext, Event> eventR
             return NotFound();
         }
 
-        _eventRepo.HardDelete(@event);
+        _eventRepo.SoftDelete(@event);
         await _eventRepo.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    [HttpGet("{id}/agenda", Name = nameof(GetEventAgenda))]
+    public async Task<ActionResult<IList<EventAgendaResponseDto>>> GetEventAgenda(
+        Guid id,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 20
+    )
+    {
+        var skip = (page - 1) * pageSize;
+
+        var agenda = await _eventAgendaRepo.QueryAsync(
+            ea => ea.Include(a => a.Items).Where(a => a.EventId == id),
+            skip,
+            pageSize
+        );
+
+        var agendaDto = agenda.Adapt<EventAgendaResponseDto>();
+
+        return Ok(agendaDto);
+    }
+
+    [Authorize]
+    [HttpPost("{id}/agenda", Name = nameof(CreateEventAgenda))]
+    public async Task<ActionResult<EventAgendaResponseDto>> CreateEventAgenda(Guid id, [FromBody] EventAgendaCreateDto agendaCreateDto)
+    {
+        var @event = await _eventRepo.GetByIdAsync(id);
+
+        if (@event is null)
+        {
+            return NotFound();
+        }
+
+        var newAgenda = agendaCreateDto.Adapt<EventAgenda>();
+        newAgenda.EventId = id;
+
+        await _eventAgendaRepo.AddAsync(newAgenda);
+        await _eventAgendaRepo.SaveChangesAsync();
+
+        var agendaDto = newAgenda.Adapt<EventAgendaResponseDto>();
+
+        return CreatedAtAction(nameof(GetEventAgenda), new { id = agendaDto.Id }, agendaDto);
+    }
+
+    [Authorize]
+    [HttpPut("/agenda/{agendaId}", Name = nameof(UpdateEventAgenda))]
+    public async Task<ActionResult> UpdateEventAgenda(Guid agendaId, [FromBody] EventAgendaUpdateDto agendaUpdateDto)
+    {
+        var agenda = await _eventAgendaRepo.GetByIdAsync(agendaId);
+
+        if (agenda is null)
+        {
+            return NotFound();
+        }
+
+        agendaUpdateDto.Adapt(agenda);
+        _eventAgendaRepo.Update(agenda);
+        await _eventAgendaRepo.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    [Authorize]
+    [HttpDelete("/agenda/{agendaId}", Name = nameof(DeleteEventAgenda))]
+    public async Task<ActionResult> DeleteEventAgenda(Guid agendaId)
+    {
+        var agenda = await _eventAgendaRepo.GetByIdAsync(agendaId);
+
+        if (agenda is null)
+        {
+            return NotFound();
+        }
+
+        _eventAgendaRepo.HardDelete(agenda);
+        await _eventAgendaRepo.SaveChangesAsync();
 
         return NoContent();
     }
