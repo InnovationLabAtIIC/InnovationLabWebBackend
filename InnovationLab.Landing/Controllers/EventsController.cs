@@ -136,7 +136,7 @@ public sealed class EventsController(
     }
 
     [Authorize]
-    [HttpPut("/agenda/{agendaId}", Name = nameof(UpdateEventAgenda))]
+    [HttpPut("agenda/{agendaId}", Name = nameof(UpdateEventAgenda))]
     public async Task<ActionResult> UpdateEventAgenda(Guid agendaId, [FromBody] EventAgendaUpdateDto agendaUpdateDto)
     {
         var agenda = await _eventAgendaRepo.GetByIdAsync(agendaId);
@@ -154,7 +154,7 @@ public sealed class EventsController(
     }
 
     [Authorize]
-    [HttpDelete("/agenda/{agendaId}", Name = nameof(DeleteEventAgenda))]
+    [HttpDelete("agenda/{agendaId}", Name = nameof(DeleteEventAgenda))]
     public async Task<ActionResult> DeleteEventAgenda(Guid agendaId)
     {
         var agenda = await _eventAgendaRepo.GetByIdAsync(agendaId);
@@ -234,7 +234,7 @@ public sealed class EventsController(
     }
 
     [Authorize]
-    [HttpPatch("/registrations/{registrationId}/status", Name = nameof(UpdateEventRegistrationStatus))]
+    [HttpPatch("registrations/{registrationId}/status", Name = nameof(UpdateEventRegistrationStatus))]
     public async Task<ActionResult> UpdateEventRegistrationStatus(
         Guid registrationId,
         [FromBody] EventRegistrationUpdateDto registrationUpdateDto
